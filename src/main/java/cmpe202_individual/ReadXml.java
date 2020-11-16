@@ -1,5 +1,10 @@
 package cmpe202_individual;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import java.io.*;
 import java.math.BigDecimal;
@@ -12,6 +17,10 @@ public class ReadXml {
 
 	public void ParseXml(String FileName, String OutFileName)
 	{
+		
+		String brandCard = "";
+		String[][] result = new String[500][500];
+		int n=0;
 		CardFactoryMethod thisCard = new CardFactoryMethod();
 		try   
 		{  
@@ -40,7 +49,11 @@ public class ReadXml {
 		String ccNumber=CNumber.toPlainString();
 
 		determineTypeOfCard typeOfCard = new determineTypeOfCard();
-		typeOfCard.createCardType(ccNumber, OutFileName);
+		 brandCard = typeOfCard.createCardType(ccNumber, OutFileName);
+			
+		 result[n][0]=ccNumber;
+		 result[n][1]=brandCard;
+		 n++;
 		}
 		}  
 		}  
@@ -50,7 +63,55 @@ public class ReadXml {
 		{  
 		e.printStackTrace();  
 		}  
+		
+		
+		
+		DocumentBuilderFactory icFactory = DocumentBuilderFactory.newInstance();
+	     DocumentBuilder icBuilder;
+	     try {
+	            icBuilder = icFactory.newDocumentBuilder();
+	            Document doc = icBuilder.newDocument();
+	            Element mainRootElement = doc.createElementNS("https://crunchify.com/CrunchifyCreateXMLDOM", "Cards");
+	            doc.appendChild(mainRootElement);
+	 
+	            for(int a = 0; a<n; a++) {
+	            // append child elements to root element
+	            mainRootElement.appendChild(getCompany(doc, result[a][0], result[a][1]));
+	            }
+	 
+	            // output DOM XML to console 
+	            Transformer transformer = TransformerFactory.newInstance().newTransformer();
+	            transformer.setOutputProperty(OutputKeys.INDENT, "yes"); 
+	            DOMSource source = new DOMSource(doc);
+	            StreamResult console = new StreamResult(System.out);
+	            StreamResult file = new StreamResult(new File(OutFileName));
+	          //  transformer.transform(source, console);
+	            transformer.transform(source, file);
+	 
+	            
+	 
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+		
+		
 		}  
+	
+	private static Node getCompany(Document doc, String name, String age) {
+        Element company = doc.createElement("row");
+       
+        company.appendChild(getCompanyElements(doc, company, "Name", name));
+        company.appendChild(getCompanyElements(doc, company, "Type", age));
+        
+        return company;
+    }
+ 
+    
+    private static Node getCompanyElements(Document doc, Element element, String name, String value) {
+        Element node = doc.createElement(name);
+        node.appendChild(doc.createTextNode(value));
+        return node;
+    }
 		
 	
 	}

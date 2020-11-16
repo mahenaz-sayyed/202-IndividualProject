@@ -2,19 +2,20 @@ package cmpe202_individual;
 
 public class determineTypeOfCard {
 	
-	public void createCardType(String cardNumber, String OutFileName ) {
+	public String createCardType(String cardNumber, String OutFileName ) {
 
 	CardFactoryMethod thisCard = new CardFactoryMethod();
-	
+	String brand = "";
 	
 	if(cardNumber.length()<19 && cardNumber.length()>0) 
 		{
 			if((cardNumber.matches("5[1-5].*")) && (cardNumber.length()==16) )
 			{
 				Cred_card masterCard = thisCard.getCard("MasterCard");
+				brand="MasterCard";
 				
 				masterCard.check_card_number();
-				masterCard.PrintFile(cardNumber, OutFileName);
+		
 				
 			}
 			
@@ -24,14 +25,16 @@ public class determineTypeOfCard {
 				Cred_card amex= thisCard.getCard("Amex");
 				
 				amex.check_card_number();
-				amex.PrintFile(cardNumber, OutFileName);
+				
+				brand="Amex";
 			}
 			else if(((cardNumber.length()==15) || (cardNumber.length()==13)) && (cardNumber.matches("3.*")))
 			{
 				Cred_card visa= thisCard.getCard("Visa");
 				
 				visa.check_card_number();
-				visa.PrintFile(cardNumber, OutFileName);
+				
+				brand="Visa";
 			}
 			
 			
@@ -42,16 +45,21 @@ public class determineTypeOfCard {
 				Cred_card discover= thisCard.getCard("Discover");
 				
 				discover.check_card_number();
-				discover.PrintFile(cardNumber, OutFileName);
+				
+				brand="Discover";
 			}
 			
 			else {
 				System.out.println("unidentified");
+				brand="Unidentified Card";
 			}
 		
 		}
 	else {
 		System.out.println("Invalid Card");
+		brand="Error card number";
 	}
+	return brand;
+	
 	}
 }

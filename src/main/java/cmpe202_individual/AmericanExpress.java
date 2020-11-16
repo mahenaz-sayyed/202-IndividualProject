@@ -7,12 +7,7 @@ public boolean check_card_number() {
 		return true;
 	}
 
-	public void PrintFile(String a, String b) 
-	{
-		StringBuilder str = new StringBuilder(); 
-		 str.append(a + "," + "Amex");
-		 System.out.println(str);
+	
 
-}
 
 }

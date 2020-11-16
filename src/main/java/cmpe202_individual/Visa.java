@@ -1,5 +1,9 @@
 package cmpe202_individual;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+
 public class Visa implements Cred_card
 {
 
@@ -8,11 +12,7 @@ public class Visa implements Cred_card
 		return true;
 	}
 
-	public void PrintFile(String a, String b) 
-	{
-		StringBuilder str = new StringBuilder(); 
-		 str.append(a + "," + "Visa");
-		 System.out.println(str);
+	
 
-}
+	
 }

@@ -8,9 +8,12 @@ public class ReadCSV {
 	public void ParseCSV(String FileName, String OutFileName)
 	{
 		
-		
+		String brandCard = "";
 		String line = "";  
-		String splitBy = ",";  
+		String splitBy = ","; 
+		
+		String[][] result = new String[500][500];
+		int n=0;
 		try   
 		{  
 		
@@ -28,7 +31,12 @@ public class ReadCSV {
 			
 			
 			determineTypeOfCard typeOfCard = new determineTypeOfCard();
-			typeOfCard.createCardType(ccNumber, OutFileName);
+			 brandCard = typeOfCard.createCardType(ccNumber, OutFileName);
+			
+			 result[n][0]=ccNumber;
+			 result[n][1]=brandCard;
+
+			 n++;
 			
 			}
 		}
@@ -39,6 +47,38 @@ public class ReadCSV {
 		{  
 		e.printStackTrace();  
 		}  
+		StringBuilder headOfFile= new StringBuilder();
+		headOfFile.append(("CardNumber , CardType"));
+		saveRec(headOfFile, OutFileName);
+		
+		for(int a = 0; a<n; a++)
+		{
+			 StringBuilder str = new StringBuilder(); 
+			 str.append(result[a][0] + " , " + result[a][1]);
+			 saveRec(str, OutFileName);
+		}
+		
+		
+		
+		
 	}
+	
+	
+	public static void saveRec(StringBuilder str, String filename)
+	{
+			try {
+				FileWriter fw = new FileWriter(filename, true);
+				BufferedWriter bw = new BufferedWriter(fw);
+				PrintWriter pw = new PrintWriter(bw);
+				pw.println(str);
+				pw.flush();
+				pw.close();
+			}
+			
+			catch (Exception E) {
+				System.out.println("Error caught");
+			}
+			}
+
 
 }
