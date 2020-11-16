@@ -5,7 +5,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ checkCardType.class, testCardValidationDigit.class })
+@SuiteClasses({ checkCardType.class, checkFactoryMethod.class, testCardValidationDigit.class })
 public class AllTests {
 
 }

@@ -13,7 +13,7 @@ public static void main(String[] args) throws IOException, ParseException
  { 
 	String One= args[0];
 	String Two= args[1];
-	String Three= args[1];
+
 	
 	
 
