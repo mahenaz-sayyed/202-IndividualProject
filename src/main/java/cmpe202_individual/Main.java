@@ -14,7 +14,7 @@ public class Main {
 
 public static void main(String[] args) throws Exception {
 	
-	String[][] cards = new String[500][500];	
+		
 	 JSONParser parser = new JSONParser();
  
 		String line = "";  

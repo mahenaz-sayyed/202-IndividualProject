@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class demoTest {
+public class checkCardType {
 
 	@Test
 	public void test() {
