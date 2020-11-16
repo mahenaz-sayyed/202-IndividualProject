@@ -50,13 +50,13 @@ public class determineTypeOfCard {
 			}
 			
 			else {
-				System.out.println("unidentified");
+				//System.out.println("unidentified");
 				brand="Unidentified Card";
 			}
 		
 		}
 	else {
-		System.out.println("Invalid Card");
+		//System.out.println("Invalid Card");
 		brand="Error card number";
 	}
 	return brand;
